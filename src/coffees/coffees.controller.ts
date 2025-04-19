@@ -6,13 +6,16 @@ import {
   Post,
   Patch,
   Delete,
+  Query,
 } from '@nestjs/common';
 
 @Controller('coffees')
 export class CoffeesController {
-  @Get('flavors')
-  findAll() {
-    return 'This action returns all coffees';
+  // クエリパラメータを付与したURLを受け取れるように@Queryデコレータが存在する
+  @Get()
+  findAll(@Query() paginationQuery) {
+    const { limit, offset } = paginationQuery;
+    return `This action returns all coffees. Limit ${limit}, offset: ${offset}`;
   }
 
   @Get(':id')
